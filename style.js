@@ -8,15 +8,19 @@ const styles = StyleSheet.create({
       backgroundColor: '#00aeef'
     },
     timer:{
-      marginTop:-160,
-      color: '#FFF',
+      justifyContent: 'center',
+      color: '#00aeef',
       fontSize: 65,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
+      backgroundColor: '#FFF',
+      borderRadius: 9
     },
     btnArea:{
       flexDirection: 'row',
       marginTop: 70,
+      width: 250,
       height: 200
+
     },
     btn:{
       flex:1,

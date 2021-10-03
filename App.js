@@ -7,7 +7,7 @@ import {
   TouchableOpacity
   } from 'react-native';
 
-  import styles from './src/style'
+  import styles from './style'
 
 class App extends Component{
 
@@ -19,7 +19,7 @@ class App extends Component{
       ultimo: null
     };
 
-    //Variavel do timer do relogio.
+    
     this.timer = null;
 
     this.vai = this.vai.bind(this);
@@ -29,14 +29,12 @@ class App extends Component{
   vai(){
 
     if(this.timer != null){
-      //Aqui vai parar o timer
       clearInterval(this.timer);
       this.timer = null;
 
       this.setState({botao: 'VAI'});
     }else{
 
-      //Comeca girar o timer
       this.timer = setInterval( ()=> {
         this.setState({numero: this.state.numero + 0.1})
       }, 100);
@@ -48,7 +46,6 @@ class App extends Component{
 
   limpar(){
     if(this.timer != null){
-      //Aqui vai parar o timer
       clearInterval(this.timer);
       this.timer = null;
     }
@@ -62,28 +59,24 @@ class App extends Component{
   render(){
     return(
       <View style={styles.container}>  
+        <Text style={styles.timer}> {this.state.numero.toFixed(1)} </Text>
+        <View style={styles.btnArea}>
 
-      <Text style={styles.timer}> {this.state.numero.toFixed(1)} </Text>
+          <TouchableOpacity style={styles.btn} onPress={this.vai}>
+            <Text style={styles.btnTexto}> {this.state.botao} </Text>
+          </TouchableOpacity>
 
-      <View style={styles.btnArea}>
+          <TouchableOpacity style={styles.btn} onPress={this.limpar}>
+            <Text style={styles.btnTexto}>LIMPAR</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity style={styles.btn} onPress={this.vai}>
-          <Text style={styles.btnTexto}> {this.state.botao} </Text>
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.btn} onPress={this.limpar}>
-          <Text style={styles.btnTexto}>LIMPAR</Text>
-        </TouchableOpacity>
-
-      </View>
-
-      <View style={styles.areaUltima}>
-          <Text style={styles.textoCorrida}>
-            {this.state.ultimo > 0 ? 'Ultimo tempo: ' + this.state.ultimo.toFixed(2) + 's' : ''}
-          </Text>
-      </View>
-
-
+        <View style={styles.areaUltima}>
+            <Text style={styles.textoCorrida}>
+              {this.state.ultimo > 0 ? 'Ultimo tempo: ' + this.state.ultimo.toFixed(2) + 's' : ''}
+            </Text>
+        </View>
       </View>    
     );
   }
