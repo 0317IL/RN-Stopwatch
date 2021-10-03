@@ -1,21 +1,93 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+  } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  import styles from './src/style'
+
+class App extends Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      numero: 0,
+      botao: 'VAI',
+      ultimo: null
+    };
+
+    //Variavel do timer do relogio.
+    this.timer = null;
+
+    this.vai = this.vai.bind(this);
+    this.limpar = this.limpar.bind(this);
+  }
+
+  vai(){
+
+    if(this.timer != null){
+      //Aqui vai parar o timer
+      clearInterval(this.timer);
+      this.timer = null;
+
+      this.setState({botao: 'VAI'});
+    }else{
+
+      //Comeca girar o timer
+      this.timer = setInterval( ()=> {
+        this.setState({numero: this.state.numero + 0.1})
+      }, 100);
+
+      this.setState({botao: 'PARAR'});
+    }
+
+  }
+
+  limpar(){
+    if(this.timer != null){
+      //Aqui vai parar o timer
+      clearInterval(this.timer);
+      this.timer = null;
+    }
+    this.setState({
+      ultimo: this.state.numero,
+      numero: 0,
+      botao: 'VAI'
+    })
+  }
+
+  render(){
+    return(
+      <View style={styles.container}>  
+
+      <Text style={styles.timer}> {this.state.numero.toFixed(1)} </Text>
+
+      <View style={styles.btnArea}>
+
+        <TouchableOpacity style={styles.btn} onPress={this.vai}>
+          <Text style={styles.btnTexto}> {this.state.botao} </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.btn} onPress={this.limpar}>
+          <Text style={styles.btnTexto}>LIMPAR</Text>
+        </TouchableOpacity>
+
+      </View>
+
+      <View style={styles.areaUltima}>
+          <Text style={styles.textoCorrida}>
+            {this.state.ultimo > 0 ? 'Ultimo tempo: ' + this.state.ultimo.toFixed(2) + 's' : ''}
+          </Text>
+      </View>
+
+
+      </View>    
+    );
+  }
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
