@@ -1,1 +1,2 @@
-# Cron-metro---React-Native
+# Cronômetro---React-Native
+
